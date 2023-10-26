@@ -2,7 +2,7 @@
 #This script displays contents of the current directory
 # but displays just the name after the first dash (-)
 
-content=$(ls)
+contents=$(ls)
 
 for cont in $contents
 do
