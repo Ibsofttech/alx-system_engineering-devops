@@ -1,19 +1,31 @@
 #!/usr/bin/python3
+
 """
-progtram that query the reddit API
+Program that queries the Reddit API.
 """
+
 
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """return a given subreddit number"""
-    if subreddit is None or type(subreddit) is not str:
+    """Returns the number of subscribers for a given subreddit."""
+    if not isinstance(subreddit, str):
         return 0
-    url = "http://www.reddit.com/r/{}/about.json".format(subreddit)
-    header = {"User-Agent": "Mozilla/5.0 (Linux; Android 10; K) \
+
+    url = f"http://www.reddit.com/r/{subreddit}/about.json"
+
+    headers = {"User-Agent": "Mozilla/5.0 (Linux; Android 10; K) \
               AppleWebKit/537.36 (KHTML, like Gecko) \
               Chrome/117.0.0.0 Safari/537.36"}
-    r = requests.get(url, headers=header).json()
-    subs = r.get("data", {}).get("subscribers", 0)
-    return subs
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()  #
+        data = response.json()
+        subscribers = data["data"]["subscribers"]
+        return subscribers
+    except requests.exceptions.RequestException as e:
+        return 0
+    except KeyError:
+        return 0
