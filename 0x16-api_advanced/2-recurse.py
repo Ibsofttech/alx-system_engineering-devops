@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-""" Quaries the Reddit API"""
+"""Function to query a list of all hot posts"""
 import requests
 
 
 def recurse(subreddit, hot_list=[], after="", count=0):
-    """Returns a list of titles of all hot posts on a given subreddit."""
+    """Returns a list of titles of all hot posts"""
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    header = {"User-Agent": "Mozilla/5.0 (Linux; Android 10; K) \
-              AppleWebKit/537.36 (KHTML, like Gecko) \
-              Chrome/117.0.0.0 Safari/537.36"}
+    headers = {
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
+    }
     params = {
         "after": after,
         "count": count,
         "limit": 100
     }
-    response = requests.get(url, headers=header, params=params,
+    response = requests.get(url, headers=headers, params=params,
                             allow_redirects=False)
     if response.status_code == 404:
         return None
