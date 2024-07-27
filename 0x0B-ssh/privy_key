@@ -1,0 +1,5 @@
+#!/bin/bash
+
+openssl genpkey -algorithm RSA -out ~/.ssh/school.pem -aes256 -aes256 -pkeyopt rsa_keygen_bits:4096
+openssl rsa -in ~/.ssh/school.pem -outform PEM -pubout -out ~/.ssh/school.pub
+chmod 600 ~/.ssh/school.pem
